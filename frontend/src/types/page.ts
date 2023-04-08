@@ -3,5 +3,5 @@ export interface PageState {
 }
 
 export interface SetCurPageAction {
-	curPageId: number
+	curPageIndex: number
 }

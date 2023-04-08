@@ -1,48 +1,77 @@
-import React, { useState } from 'react'
-import { Cookies, useCookies } from 'react-cookie'
-import { useAppDispatch, useAppSelector } from '@/hooks'
-//import authApi from '@/store/api/authService'
-import { IUser } from '@/types/user'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie'
+import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/router'
 
 const Login = () => {
-	const [cookies, setCookie, removeCookie] = useCookies(['is_loginned'])
+	const [cookies, setCookie, removeCookie] = useCookies(['login', 'password', 'is_loginned'])
 	const [login, setLogin] = useState('')
 	const [password, setPassword] = useState('')
+	const [error, setError] = useState('')
 	const router = useRouter();
+
+	useEffect(() => {
+		setLogin(cookies.login)
+		setPassword(cookies.password)
+		console.log(cookies.is_loginned)
+	}, [])
 
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()
 
-		const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URI}/api/login`, JSON.stringify({
-			login,
-			password
-		}))
-		const { is_loginned } = response.data
+		try {
+			const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URI}/api/login`, {
+				login,
+				password
+			})
+	
+			const { status } = response.data
+			console.log('login', response.data)
 
-		console.log('aboba', response)
+			if (status == 1) {
+				throw new Error('Сотрудника с таким логином не найдено')
+			}
+	
+			if (status == 2) {
+				throw new Error('Неверный пароль')
+			}
+	
+			setCookie('login', login, {
+				maxAge: 24 * 60 * 60
+			})
 
-		setCookie('is_loginned', is_loginned, {
-			maxAge: 24 * 60 * 60
-		})
-		if (is_loginned) {
-			router.push('/')
+			setCookie('password', password, {
+				maxAge: 24 * 60 * 60
+			})
+
+			setCookie('is_loginned', true, {
+				maxAge: 24 * 60 * 60
+			})
+	
+			router.push(`/profile/${login}`)
+
+		} catch (error: any) {
+			setError(error.message)
 		}
 	}
+
 	function handleLoginChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setLogin(e.target.value)
 	}
+
 	function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
 		setPassword(e.target.value)
 	}
 
 	return (
 		<div className="auth-wrapper">
-			<form className='auth-form'>
+			<form className='auth-form' onSubmit={(e) => handleSubmit(e)}>
 				<input type='text' placeholder='Логин' onChange={handleLoginChange}/>
 				<input type='password' placeholder='Пароль' onChange={handlePasswordChange}/>
-				<input type='submit' onClick={() => handleSubmit}/>
+				<input type='submit'/>
+				{error && (
+					<p className='auth-error'>Ошибка входа: {error}</p>
+				)}
 			</form>
 		</div>
 	)
