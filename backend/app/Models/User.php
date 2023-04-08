@@ -13,5 +13,5 @@ class User extends Model
     protected $primaryKey = 'login';
     public $incrementing = 'false';
     protected $dateFormat = 'U';
-    protected $table = 'client';
+    protected $table = 'user';
 }
