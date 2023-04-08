@@ -26,14 +26,18 @@ class UserInfo
                 'street' => $prop['street']
             ];
         }
-        $result = [
-            'first_name' => $human->first_name,
-            'last_name' => $human->surname,
-            'patronymic' => $human->patronymic,
-            'speciality' => $user->speciality,
-            'objects' => $objects
-        ];
-        return response($result);
+        if (isset($user) && isset($human) && isset($objectsId)) {
+            $result = [
+                'first_name' => $human->first_name,
+                'last_name' => $human->surname,
+                'patronymic' => $human->patronymic,
+                'speciality' => $user->speciality,
+                'objects' => $objects
+            ];
+            return response($result);
+        }
+        else
+            return response('Not complete data for this user');
     }
 
     static function login(Request $request)
