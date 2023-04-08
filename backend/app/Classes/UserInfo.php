@@ -16,7 +16,7 @@ class UserInfo
     {
         $user = User::where('login', $login)->first();
         $human = Human::where('id', $user->human_id)->first();
-        $objectsId = Job::select('object_id')->where('responsible_worker_login', $login)->get()->unique();
+        $objectsId = Job::select('object_id')->where('responsible_worker_login', $login)->groupBy('object_id')->get();
         foreach ($objectsId as $object) {
             $obj = ObjectOfAgenda::select('property_id', 'decision')->where('id', $object->object_id)->first();
             $prop = Property::select('street', 'home')->where('id', $obj['property_id'])->first();
