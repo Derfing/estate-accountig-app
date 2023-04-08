@@ -14,18 +14,18 @@ class AuthController extends Controller
         $login = $request['login'];
         $password = $request['password'];
 
-        if ($login && $password)
-        {
+        if ($login && $password) {
             $user = User::where('login', $login)->first();
             $time = 24 * 60;
             $response = new \Illuminate\Http\Response();
-            if ($user->password == $password)
-            {
-                return $response->cookie('is_logined', 'true', $time);
-            }
-            else
-            {
-                return $response->cookie('is_logined', 'false', $time);
+            if ($user) {
+                if ($user->password == $password) {
+                    return $response->cookie('is_logined', 'true', $time);
+                } else {
+                    return $response->cookie('is_logined', 'false', $time);
+                }
+            } else {
+                return response("error 1");
             }
         }
     }
