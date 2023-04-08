@@ -16,13 +16,11 @@ class AuthController extends Controller
 
         if ($login && $password) {
             $user = User::where('login', $login)->first();
-            $time = 24 * 60;
-            $response = new \Illuminate\Http\Response();
             if ($user) {
                 if ($user->password == $password) {
-                    return $response->cookie('is_logined', 'true', $time);
+                    return response(['is_loginned' => true]);
                 } else {
-                    return $response->cookie('is_logined', 'false', $time);
+                    return response(['is_loginned' => false]);
                 }
             } else {
                 return response("error 1");
