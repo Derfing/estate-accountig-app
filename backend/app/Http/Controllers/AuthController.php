@@ -23,7 +23,7 @@ class AuthController extends Controller
                     return response(['is_loginned' => false]);
                 }
             } else {
-                return response("error 1");
+                return response("User do not exist");
             }
         }
     }
