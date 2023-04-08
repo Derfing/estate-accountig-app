@@ -1,6 +1,10 @@
+import MainLayout from "@/components/MainLayout";
 
 export default function Home() {
+
   return (
-    <div>cringe</div>
+    <MainLayout>
+      <h1>Главная</h1>
+    </MainLayout>
   )
 }
