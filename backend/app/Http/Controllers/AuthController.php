@@ -18,12 +18,12 @@ class AuthController extends Controller
             $user = User::where('login', $login)->first();
             if ($user) {
                 if ($user->password == $password) {
-                    return response(['is_loginned' => true]);
+                    return response(['is_loginned' => true, 'role' => $user->role, 'status' => '0']);
                 } else {
-                    return response(['is_loginned' => false]);
+                    return response(['is_loginned' => false, 'status' => '2']);
                 }
             } else {
-                return response("User do not exist");
+                return response(['is_loginned' => false, 'status' => '1']);
             }
         }
     }
