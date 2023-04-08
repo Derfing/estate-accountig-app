@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Classes\\UserInfo' => $baseDir . '/app/Classes/UserInfo.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\AuthController' => $baseDir . '/app/Http/Controllers/AuthController.php',
@@ -20,6 +21,13 @@ return array(
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\ValidateSignature' => $baseDir . '/app/Http/Middleware/ValidateSignature.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Models\\AdditionalAttributes' => $baseDir . '/app/Models/AdditionalAttributes.php',
+    'App\\Models\\Agenda' => $baseDir . '/app/Models/Agenda.php',
+    'App\\Models\\Human' => $baseDir . '/app/Models/Human.php',
+    'App\\Models\\Job' => $baseDir . '/app/Models/Job.php',
+    'App\\Models\\Media' => $baseDir . '/app/Models/Media.php',
+    'App\\Models\\ObjectOfAgenda' => $baseDir . '/app/Models/ObjectOfAgenda.php',
+    'App\\Models\\Property' => $baseDir . '/app/Models/Property.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

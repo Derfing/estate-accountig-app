@@ -530,6 +530,7 @@ class ComposerStaticInitda1a13eeeabbb4a872cebac2c8efe8b6
     );
 
     public static $classMap = array (
+        'App\\Classes\\UserInfo' => __DIR__ . '/../..' . '/app/Classes/UserInfo.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
@@ -544,6 +545,13 @@ class ComposerStaticInitda1a13eeeabbb4a872cebac2c8efe8b6
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\ValidateSignature' => __DIR__ . '/../..' . '/app/Http/Middleware/ValidateSignature.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Models\\AdditionalAttributes' => __DIR__ . '/../..' . '/app/Models/AdditionalAttributes.php',
+        'App\\Models\\Agenda' => __DIR__ . '/../..' . '/app/Models/Agenda.php',
+        'App\\Models\\Human' => __DIR__ . '/../..' . '/app/Models/Human.php',
+        'App\\Models\\Job' => __DIR__ . '/../..' . '/app/Models/Job.php',
+        'App\\Models\\Media' => __DIR__ . '/../..' . '/app/Models/Media.php',
+        'App\\Models\\ObjectOfAgenda' => __DIR__ . '/../..' . '/app/Models/ObjectOfAgenda.php',
+        'App\\Models\\Property' => __DIR__ . '/../..' . '/app/Models/Property.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
