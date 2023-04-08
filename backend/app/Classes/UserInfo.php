@@ -37,7 +37,9 @@ class UserInfo
             return response($result);
         }
         else
-            return response('Not complete data for this user');
+        {
+            return response(['status' => 'error', 'error' => 'Not complete data for this user']);
+        }
     }
 
     static function login(Request $request)
