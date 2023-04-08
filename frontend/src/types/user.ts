@@ -1,4 +1,4 @@
-export interface IUser {
+export interface IUserLogin {
 	login: string
 	password: string
 	is_loginned: boolean

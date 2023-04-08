@@ -1,7 +1,6 @@
 import { PageState, SetCurPageAction } from "@/types/page"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-
 const initialState: PageState = {
 	curPageId: 0
 }
@@ -11,7 +10,7 @@ const pageSlice = createSlice({
 	initialState,
 	reducers: {
 		setCurPage: (state: PageState, action: PayloadAction<SetCurPageAction>) => {
-			state.curPageId = action.payload.curPageId
+			state.curPageId = action.payload.curPageIndex
 		}
 	}
 })

@@ -69,6 +69,7 @@ html, body, header, main, footer {
 	position: absolute;
 	top: 0;
 	left: 0;
+	padding: 5px 15px;
 }
 .menu {
 	width: 100%;
@@ -90,4 +91,7 @@ header {
 			padding: 20px 0;
 		}
 	}	
+}
+.login-label {
+	font-weight: bold;
 }

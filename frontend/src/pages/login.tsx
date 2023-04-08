@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
-import axios, { AxiosError } from 'axios'
+import axios from 'axios'
 import { useRouter } from 'next/router'
+import { useAppDispatch } from '@/hooks'
+import { setIsLoginned, setLogin, setPassword } from '@/store/slices/userSlice'
 
 const Login = () => {
 	const [cookies, setCookie, removeCookie] = useCookies(['login', 'password', 'is_loginned'])
-	const [login, setLogin] = useState('')
-	const [password, setPassword] = useState('')
+	const [login_, setLogin_] = useState('')
+	const [password_, setPassword_] = useState('')
 	const [error, setError] = useState('')
-	const router = useRouter();
+	const router = useRouter()
+  const dispatch = useAppDispatch()
+
+  const handleChangeLogin = (login: string) => dispatch(setLogin({login}))
+	const handleChangePassword = (password: string) => dispatch(setPassword({password}))
+	const handleChangeIsLoginned = (is_loginned: boolean) => dispatch(setIsLoginned({is_loginned}))
 
 	useEffect(() => {
-		setLogin(cookies.login)
-		setPassword(cookies.password)
+		setLogin_(cookies.login)
+		setPassword_(cookies.password)
 		console.log(cookies.is_loginned)
 	}, [])
 
@@ -21,34 +28,34 @@ const Login = () => {
 
 		try {
 			const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URI}/api/login`, {
-				login,
-				password
+				login: login_,
+				password: password_
 			})
 	
 			const { status } = response.data
-			console.log('login', response.data)
 
 			if (status == 1) {
 				throw new Error('Сотрудника с таким логином не найдено')
 			}
-	
 			if (status == 2) {
 				throw new Error('Неверный пароль')
 			}
 	
-			setCookie('login', login, {
+			setCookie('login', login_, {
 				maxAge: 24 * 60 * 60
 			})
-
-			setCookie('password', password, {
+			setCookie('password', password_, {
 				maxAge: 24 * 60 * 60
 			})
-
 			setCookie('is_loginned', true, {
 				maxAge: 24 * 60 * 60
 			})
+
+			handleChangeLogin(login_)
+			handleChangePassword(password_)
+			handleChangeIsLoginned(true)
 	
-			router.push(`/profile/${login}`)
+			router.push(`/profile/${login_}`)
 
 		} catch (error: any) {
 			setError(error.message)
@@ -56,11 +63,11 @@ const Login = () => {
 	}
 
 	function handleLoginChange(e: React.ChangeEvent<HTMLInputElement>) {
-		setLogin(e.target.value)
+		setLogin_(e.target.value)
 	}
 
 	function handlePasswordChange(e: React.ChangeEvent<HTMLInputElement>) {
-		setPassword(e.target.value)
+		setPassword_(e.target.value)
 	}
 
 	return (

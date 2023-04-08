@@ -1,13 +1,12 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit'
-//import authApi from './api/authService'
+import { configureStore } from '@reduxjs/toolkit'
 import pageSlice from './slices/pageSlice'
+import userSlice from './slices/userSlice'
 
 const store = configureStore({
 	reducer: {
 		curPage: pageSlice.reducer,
-		//[authApi.reducerPath]: authApi.reducer,
+		user: userSlice.reducer
 	},
-	//middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware)
 })
 
 export default store
