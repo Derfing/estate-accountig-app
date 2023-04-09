@@ -17,14 +17,14 @@ class UserControl
         $speciality = $request['speciality'];
 
         if (!$firstname || !$lastname || !$patronymic || !$speciality) {
-            return response(['status' => 'Ошибка: Недостаточно введены данные запроса']);
+            return response(['status' => 'Недостаточно введены данные запроса']);
         }
 
         $user = User::find($login);
         $human = Human::find($user->human_id);
 
         if (!$user || !$human) {
-            return response(['status' => 'Ошибка: Не существует пользователя с таким логином или он неправильно заполнен.']);
+            return response(['status' => 'Не существует пользователя с таким логином или он неправильно заполнен.']);
         }
 
         $user->speciality = $speciality;
@@ -35,7 +35,7 @@ class UserControl
         if ($user->save() &&  $human->save()) {
             return ['status' => 'ok'];
         } else {
-            return ['status' => 'Ошибка: Ошибка при сохранении пользователя.'];
+            return ['status' => 'Ошибка при сохранении пользователя.'];
         }
     }
 
@@ -43,9 +43,14 @@ class UserControl
     {
         $user = User::find($login);
         $human = Human::find($user->human_id);
+
+        if (!$user || !$human) {
+            return response(['status' => 'Не существует пользователя с таким логином или он неправильно заполнен.']);
+        }
+
         if ($user->forceDelete() && $human->forceDelete())
-            return response(['status' => '0']);
+            return response(['status' => 'ok']);
         else
-            return response(['status' => '-1']);
+            return response(['status' => 'Не удалось удалить пользователя полностью.']);
     }
 }

@@ -17,7 +17,7 @@ class UserInfo
         $human = Human::where('id', $user->human_id)->first();
 
         if (!$user || !$human) {
-            return response(['status' => 'Ошибка: Не существует пользователя с таким логином или он неправильно заполнен.']);
+            return response(['status' => 'Не существует пользователя с таким логином или он неправильно заполнен.']);
         }
 
         $objectsId = Job::select('object_id')->where('responsible_worker_login', $login)->groupBy('object_id')->get();
@@ -42,7 +42,7 @@ class UserInfo
         ];
 
         if (!$result) {
-            return response(['status' => 'Ошибка: Ошибка во время генерации ответа.']);
+            return response(['status' => 'Ошибка во время генерации ответа.']);
         } else {
             return response(['status' => 'ok', 'result' => $result]);
         }
@@ -54,7 +54,7 @@ class UserInfo
         $password = $request['password'];
 
         if (!$login || !$password) {
-            return response(['status' => 'Ошибка: Неправильно введен логин или пароль.']);
+            return response(['status' => 'Неправильно введен логин или пароль.']);
         } else {
             $user = User::where('login', $login)->first();
             if ($user) {
@@ -62,10 +62,10 @@ class UserInfo
                     $result = ['role' => $user->role];
                     return response(['status' => 'ok', 'result' => $result]);
                 } else {
-                    return response(['status' => 'Ошибка: Неверный пароль.']);
+                    return response(['status' => 'Неверный пароль.']);
                 }
             } else {
-                return response(['status' => 'Ошибка: Неверный логин.']);
+                return response(['status' => 'Неверный логин.']);
             }
         }
     }
