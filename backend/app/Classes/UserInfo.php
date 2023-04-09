@@ -53,16 +53,19 @@ class UserInfo
         $login = $request['login'];
         $password = $request['password'];
 
-        if ($login && $password) {
+        if (!$login || !$password) {
+            return response(['status' => 'Ошибка: Неправильно введен логин или пароль.']);
+        } else {
             $user = User::where('login', $login)->first();
             if ($user) {
                 if ($user->password == $password) {
-                    return response(['is_loginned' => true, 'role' => $user->role, 'status' => '0']);
+                    $result = ['role' => $user->role];
+                    return response(['status' => 'ok', 'result' => $result]);
                 } else {
-                    return response(['is_loginned' => false, 'status' => '2']);
+                    return response(['status' => 'Ошибка: Неверный пароль.']);
                 }
             } else {
-                return response(['is_loginned' => false, 'status' => '1']);
+                return response(['status' => 'Ошибка: Неверный логин.']);
             }
         }
     }
