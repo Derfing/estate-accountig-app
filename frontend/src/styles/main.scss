@@ -94,12 +94,30 @@ header {
 }
 .profile-global-wrapper {
 	margin-top: 50px;
+	.change-profile-btn {
+		margin: 30px 0;
+		border: none;
+		padding: 10px;
+		border-radius: 7px;
+		cursor: pointer;
+		&.save-btn {
+			background: rgb(96, 253, 96);
+		}
+		&.change-btn {
+			background: rgb(255, 180, 41);
+		}
+	}
 	.profile-section {
-		margin: 35px 0;
 		display: flex;
 		.profile-content {
+			.input-speciality {
+				width: 442px;
+				margin-top: 10px;
+			}
 			.worker-FIO {
+				display: block;
 				font-weight: bold;
+				margin-top: 20px;
 			}
 			.login-label {
 				font-weight: bold;
