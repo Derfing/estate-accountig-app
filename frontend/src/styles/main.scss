@@ -234,7 +234,7 @@ header {
 				margin-top: 10px;
 			}
 		}
-		.create-attribute-form {
+		.create-attribute-block {
 			margin-top: 20px;
 			.create-attribute-form-inputs {
 				width: 100%;
@@ -313,5 +313,13 @@ header {
 			cursor: pointer;
 			font-size: 17px;
 		}
+	}
+}
+.object-wrap {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	.col {
+		width: calc(33% - 20px);
 	}
 }
