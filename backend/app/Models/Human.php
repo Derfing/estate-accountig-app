@@ -11,4 +11,5 @@ class Human extends Model
 
     protected $primaryKey = 'id';
     protected $table = 'human';
+    public $timestamps = false;
 }

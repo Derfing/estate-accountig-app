@@ -22,4 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::put('/profile/{login}/edit', [AuthController::class, 'editProfile']);
+
 Route::get('/profile/{login}', [AuthController::class, 'getProfile']);
