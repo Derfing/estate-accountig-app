@@ -20,8 +20,6 @@ const Create = () => {
 	const [validateError, setValidateError] = useState<null | string>(null)
 
 	useEffect(() => {
-		//alert(role)
-		console.log(role)
 		if (role !== 'ГИН') {
 			router.push(`/profile/${myLogin}`)
 		}
@@ -39,7 +37,7 @@ const Create = () => {
 			return
 		}
 		
-		API.post('/api/profile/create', {
+		API.post('/profile/create', {
 			login,
 			password,
 			firstname,
@@ -54,6 +52,8 @@ const Create = () => {
 		setLastname('')
 		setPatronymic('')
 		setSpeciality('')
+
+		setValidateError('')
 	}
 
 	return (

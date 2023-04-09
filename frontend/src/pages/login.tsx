@@ -17,12 +17,6 @@ const Login = () => {
 	const handleChangeIsLoginned = (is_loginned: boolean) => dispatch(setIsLoginned({is_loginned}))
 	const handleChangeRole = (role: string) => dispatch(setRole({role}))
 
-	useEffect(() => {
-		//setLogin_(cookies.login)
-		//setPassword_(cookies.password)
-		//console.log(cookies.is_loginned)
-	}, [])
-
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault()
 

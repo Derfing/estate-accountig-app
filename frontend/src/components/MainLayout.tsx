@@ -2,16 +2,17 @@ import React, { useEffect } from 'react'
 import Footer from './Footer'
 import Header from './Header'
 import { useRouter } from 'next/router'
-import { useAppDispatch } from '@/hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks'
 import { setCurPage } from '@/store/slices/pageSlice'
 import { menuLinks } from '@/store/static'
-import { useCookies } from 'react-cookie'
+import { setIsLoginned } from '@/store/slices/userSlice'
 
 const MainLayout = ({children}: any) => {
-	const [cookies, setCookie, removeCookie] = useCookies(['is_loginned', 'login', 'password'])
 	const router = useRouter()
   const dispatch = useAppDispatch()
+	const is_loginned = useAppSelector(state => state.user.is_loginned)
 
+	const handleExit_ = () => dispatch(setIsLoginned({is_loginned: false}))
   const handleChangePage = (curPageIndex: number) => dispatch(setCurPage({curPageIndex}))
 
   useEffect(() => {
@@ -22,12 +23,7 @@ const MainLayout = ({children}: any) => {
   }, [router.pathname])
 
 	function handleExit() {
-		/*
-		removeCookie('is_loginned')
-		removeCookie('login')
-		removeCookie('password')
-		*/
-		localStorage.removeItem('user')
+
 		router.push('/login')
 	}
 	

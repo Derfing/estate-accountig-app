@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
 const PageNotFound = () => {
-	//const [cookies, setCookie, removeCookie] = useCookies(['login'])
 	const login = useAppSelector(state => state.user.login)
 	const router = useRouter()
 

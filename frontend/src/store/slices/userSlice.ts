@@ -1,4 +1,4 @@
-import { IUserLogin, SetLoginAction, SetPasswordAction, SetIsLoginnedAction, SetRoleAction } from "@/types/user"
+import { IUserLogin, SetLoginAction, SetIsLoginnedAction, SetRoleAction } from "@/types/user"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 const initialState: IUserLogin = {
