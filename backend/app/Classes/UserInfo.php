@@ -32,6 +32,7 @@ class UserInfo
                 'last_name' => $human->surname,
                 'patronymic' => $human->patronymic,
                 'speciality' => $user->speciality,
+                'role' => $user->role,
                 'objects' => $objects
             ];
             return response($result);
