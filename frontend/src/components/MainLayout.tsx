@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Image from 'next/image'
 import Footer from './Footer'
 import Header from './Header'
 import { useRouter } from 'next/router'
@@ -23,13 +24,16 @@ const MainLayout = ({children}: any) => {
   }, [router.pathname])
 
 	function handleExit() {
-
+		handleExit_()
 		router.push('/login')
 	}
 	
 	return (
 		<>
-			<button type='button' className='exit-btn' onClick={handleExit}>Выйти</button>
+			<button type='button' className='exit-btn' onClick={handleExit}>
+				Выйти
+				<Image src='/assets/icons/logout-icon.png' alt='logout-icon' width={15} height={15}/>
+			</button>
 			<Header/>
 			<main>
 				{children}

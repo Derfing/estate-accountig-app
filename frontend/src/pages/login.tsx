@@ -80,7 +80,7 @@ const Login = () => {
 			<form className='auth-form' onSubmit={(e) => handleSubmit(e)}>
 				<input type='text' placeholder='Логин' onChange={handleLoginInput}/>
 				<input type='password' placeholder='Пароль' onChange={handlePasswordInput}/>
-				<input type='submit'/>
+				<input type='submit' value='Войти'/>
 				{error && (
 					<p className='auth-error'>Ошибка входа: {error}</p>
 				)}
