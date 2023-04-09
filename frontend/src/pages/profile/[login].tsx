@@ -8,11 +8,15 @@ import Link from 'next/link'
 import API from '@/utils/API'
 
 interface ServerSideProps {
-	first_name: string
-	last_name: string
-	patronymic: string
-	speciality: string
-	objects: IObject[]
+	status: string
+	result: {
+		first_name: string
+		last_name: string
+		patronymic: string
+		speciality: string
+		role: string
+		objects: IObject[]
+	}
 }
 
 const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -21,17 +25,18 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
   const [cookies, setCookie, removeCookie] = useCookies(['login', 'is_loginned'])
 
 	const [changeProfileMode, setChangeProfileMode] = useState(false)
-
-	const [login, setLogin] = useState(loginFromURL)
-	const [firstname, setFirstname] = useState(data.first_name)
-	const [lastname, setLastname] = useState(data.last_name)
-	const [patronymic, setPatronymic] = useState(data.patronymic)
-	const [speciality, setSpeciality] = useState(data.speciality)
 	const [counter, setCounter] = useState(0)
 
+	const [login, setLogin] = useState(loginFromURL)
+	const [firstname, setFirstname] = useState(data.result.first_name)
+	const [lastname, setLastname] = useState(data.result.last_name)
+	const [patronymic, setPatronymic] = useState(data.result.patronymic)
+	const [speciality, setSpeciality] = useState(data.result.speciality)
+	const [role, setRole] = useState(data.result.role)
+
 	let objects = []
-	for (let key in data.objects) {
-		objects.push({...data.objects[key], id: Number(key)})
+	for (let key in data.result.objects) {
+		objects.push({...data.result.objects[key], id: Number(key)})
 	}
 
   useEffect(() => {
@@ -47,23 +52,16 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 
 	useEffect(() => {
 		fetchUser()
-			.then(response => {
-				setFirstname(response.first_name)
-				setLastname(response.last_name)
-				setPatronymic(response.patronymic)
-				setSpeciality(response.speciality)
-			})
+			.then(response => response.result)
 	}, [counter])
 
 	async function handleChangeProfileMode() {
 		if (changeProfileMode) {
-
-			const data = await API.put(`${process.env.NEXT_PUBLIC_API_URL}/profile/${login}/edit`, {
+			const data = await API.put(`/profile/${login}/edit`, {
 				firstname, lastname, patronymic, speciality
 			})
 				.then(response => response.data)
-			
-			console.log(data)
+			setCounter(prev => prev + 1)
 		}
 		setChangeProfileMode(prev => !prev)
 	}
@@ -80,10 +78,19 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 	function handleChangeSpeciality(e: React.ChangeEvent<HTMLInputElement>) {
 		setSpeciality(e.target.value)
 	}
+
+	async function handleDeleteUser() {
+		await API.delete(`/profile/${login}/delete`)
+	}
+
+	function handleCreateUser() {
+		router.push('/profile/create')
+	}
 	
 	return (
 		<MainLayout>
 			<div className="container profile-global-wrapper">
+				<h1>Профиль</h1>
 				<section className='profile-section login-section'>
 					<div className="profile-content">
 						<span className='login-label'>Логин: </span>{login}
@@ -99,12 +106,22 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 						}
 						</div>
 				</section>
-				{
-					changeProfileMode 
-						? <button className='change-profile-btn save-btn' onClick={handleChangeProfileMode}>Сохранить изменения</button> 
-						: <button className='change-profile-btn change-btn' onClick={handleChangeProfileMode}>Изменить профиль</button>
-				}
-				
+				<section className='profile-section role-section'>
+					<div className="profile-content">
+						<span className='role-label'>Роль: </span>{role}
+					</div>
+				</section>
+				<div className="btns">
+					<button className='change-profile-btn delete-btn' onClick={handleDeleteUser}>Удалить сотрудника</button> 
+					{
+						changeProfileMode 
+							? <button className='change-profile-btn save-btn' onClick={handleChangeProfileMode}>Сохранить изменения</button>
+							: <button className='change-profile-btn change-btn' onClick={handleChangeProfileMode}>Изменить профиль</button>
+					}
+					{
+						role === 'ГИН' && <button onClick={handleCreateUser} className='change-profile-btn create-user-btn'>Создать сотрудника</button>
+					}
+				</div>
 				<section className='profile-section active-objects'>
 					<div className="profile-content">
 						<h2>Действующие объекты</h2>

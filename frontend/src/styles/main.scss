@@ -106,8 +106,18 @@ header {
 		&.change-btn {
 			background: rgb(255, 180, 41);
 		}
+		&.delete-btn {
+			background: rgb(255, 66, 18);
+		}
+		&.create-user-btn {
+			background: yellow;
+		}
+		&:not(:first-child) {
+			margin-left: 10px;
+		}
 	}
 	.profile-section {
+		margin: 20px 0;
 		display: flex;
 		.profile-content {
 			.input-speciality {

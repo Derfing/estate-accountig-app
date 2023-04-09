@@ -1,10 +1,11 @@
-import { IUserLogin, SetLoginAction, SetPasswordAction, SetIsLoginnedAction } from "@/types/user"
+import { IUserLogin, SetLoginAction, SetPasswordAction, SetIsLoginnedAction, SetRoleAction } from "@/types/user"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 const initialState: IUserLogin = {
 	login: '',
 	password: '',
-	is_loginned: false
+	is_loginned: false,
+	role: 'ГОС_ОРГАН'
 }
 
 const userSlice = createSlice({
@@ -20,8 +21,11 @@ const userSlice = createSlice({
 		setPassword: (state: IUserLogin, action: PayloadAction<SetPasswordAction>) => {
 			state.password = action.payload.password
 		},
+		setRole: (state: IUserLogin, action: PayloadAction<SetRoleAction>) => {
+			state.role = action.payload.role
+		},
 	}
 })
 
-export const { setIsLoginned, setLogin, setPassword } = userSlice.actions
+export const { setIsLoginned, setLogin, setPassword, setRole } = userSlice.actions
 export default userSlice
