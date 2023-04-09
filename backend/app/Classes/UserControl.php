@@ -16,7 +16,7 @@ class UserControl
         $speciality = $request['speciality'];
 
         $user = User::find($login);
-        $human = Human::select('surname', 'first_name', 'patronymic')->where('id', $user->human_id)->first();
+        $human = Human::find($user->human_id);
 
         $user->speciality = $speciality;
         $human->surname = $lastname;
