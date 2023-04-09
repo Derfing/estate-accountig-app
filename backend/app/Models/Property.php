@@ -11,4 +11,5 @@ class Property extends Model
 
     protected $table = 'property';
     protected $primaryKey = 'id';
+    public $timestamps = false;
 }

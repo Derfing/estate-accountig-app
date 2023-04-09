@@ -10,5 +10,6 @@ class AdditionalAttributes extends Model
     use HasFactory;
 
     protected $primaryKey = 'id';
-    protected $table = 'additional_attributes'
+    protected $table = 'additional_attributes';
+    public $timestamps = false;
 }

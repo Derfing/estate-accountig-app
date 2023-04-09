@@ -22,7 +22,6 @@ class UserInfo
             return response(['status' => 'Не существует пользователя с таким логином или он неправильно заполнен.']);
         }
 
-
         $objectsId = Job::select('object_id')->where('responsible_worker_login', $login)->groupBy('object_id')->get();
 
         $objects = [];

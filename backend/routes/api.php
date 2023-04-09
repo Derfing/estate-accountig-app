@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,3 +30,5 @@ Route::delete('/profile/{login}/delete', [AuthController::class, 'deleteProfile'
 Route::put('/profile/{login}/edit', [AuthController::class, 'editProfile']);
 
 Route::get('/profile/{login}', [AuthController::class, 'getProfile']);
+
+Route::post('/property/create', [PropertyController::class, 'createProperty']);
