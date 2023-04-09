@@ -12,7 +12,9 @@ const CreateObject = () => {
 	const [owner, setOwner] = useState('')//собственник
 	const [actualUser, setActualUser] = useState('')//факт. пользователь
 
-	
+	const customProperties: CustomProperty[] = []
+	const [newPropertyName, setNewPropertyName] = useState('')
+	const [newPropertyValue, setNewPropertyValue] = useState('')
 
 	return (
 		<MainLayout>
@@ -28,7 +30,10 @@ const CreateObject = () => {
 						<input type='number' placeholder='Площадь объекта' value={objectArea} onChange={e => setObjectArea(e.target.value)}/>
 						<input type='text' placeholder='Собственник' value={owner} onChange={e => setOwner(e.target.value)}/>
 						<input type='text' placeholder='Факт. пользователь' value={actualUser} onChange={e => setActualUser(e.target.value)}/>
-
+						<form>
+							<input type='text' value={newPropertyName} onChange={e => setNewPropertyName(e.target.value)}/>
+							<input type='text' value={newPropertyValue} onChange={e => setNewPropertyValue(e.target.value)}/>
+						</form>
 					</div>
 					<div className="col-2">
 

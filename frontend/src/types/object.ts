@@ -18,6 +18,6 @@ export interface IObjectNew {
 }
 
 export interface CustomProperty {
-	property: string
+	name: string
 	value: string
 }

@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie'
 const Menu = () => {
 	const curPageId = useAppSelector(state => state.curPage.curPageIndex)
 	const login = useAppSelector(state => state.user.login)
+	//const [cookies] = useCookies(['login'])
 
 	return (
 		<nav className='menu'>

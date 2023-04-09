@@ -18,14 +18,11 @@ const userSlice = createSlice({
 		setLogin: (state: IUserLogin, action: PayloadAction<SetLoginAction>) => {
 			state.login = action.payload.login
 		},
-		setPassword: (state: IUserLogin, action: PayloadAction<SetPasswordAction>) => {
-			state.password = action.payload.password
-		},
 		setRole: (state: IUserLogin, action: PayloadAction<SetRoleAction>) => {
 			state.role = action.payload.role
 		},
 	}
 })
 
-export const { setIsLoginned, setLogin, setPassword, setRole } = userSlice.actions
+export const { setIsLoginned, setLogin, setRole } = userSlice.actions
 export default userSlice

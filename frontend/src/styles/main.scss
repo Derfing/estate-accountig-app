@@ -172,7 +172,7 @@ header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		button[type="submit"] {
+		button {
 			margin: 0 auto;
 			display: block;
 		}
@@ -198,4 +198,12 @@ header {
 			}
 		}
 	}
+}
+.loader-wrap {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #161519;
 }

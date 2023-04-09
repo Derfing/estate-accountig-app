@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { useAppDispatch } from '@/hooks'
-import { setIsLoginned, setLogin, setPassword, setRole } from '@/store/slices/userSlice'
+import { setIsLoginned, setLogin, setRole } from '@/store/slices/userSlice'
 import API from '@/utils/API'
 
 const Login = () => {
@@ -14,14 +14,13 @@ const Login = () => {
   const dispatch = useAppDispatch()
 
   const handleChangeLogin = (login: string) => dispatch(setLogin({login}))
-	const handleChangePassword = (password: string) => dispatch(setPassword({password}))
 	const handleChangeIsLoginned = (is_loginned: boolean) => dispatch(setIsLoginned({is_loginned}))
 	const handleChangeRole = (role: string) => dispatch(setRole({role}))
 
 	useEffect(() => {
-		setLogin_(cookies.login)
-		setPassword_(cookies.password)
-		console.log(cookies.is_loginned)
+		//setLogin_(cookies.login)
+		//setPassword_(cookies.password)
+		//console.log(cookies.is_loginned)
 	}, [])
 
 	async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -57,9 +56,15 @@ const Login = () => {
 			})
 
 			handleChangeLogin(login_)
-			handleChangePassword(password_)
 			handleChangeIsLoginned(true)
 			handleChangeRole(role)
+
+			/*
+			localStorage.setItem('user', JSON.stringify({
+				is_loginned: true,
+				login: login_
+			}))
+			*/
 	
 			router.push(`/profile/${login_}`)
 

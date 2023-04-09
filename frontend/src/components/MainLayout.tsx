@@ -8,7 +8,7 @@ import { menuLinks } from '@/store/static'
 import { useCookies } from 'react-cookie'
 
 const MainLayout = ({children}: any) => {
-	const [cookies, setCookie, removeCookie] = useCookies(['is_loginned'])
+	const [cookies, setCookie, removeCookie] = useCookies(['is_loginned', 'login', 'password'])
 	const router = useRouter()
   const dispatch = useAppDispatch()
 
@@ -22,7 +22,12 @@ const MainLayout = ({children}: any) => {
   }, [router.pathname])
 
 	function handleExit() {
+		/*
 		removeCookie('is_loginned')
+		removeCookie('login')
+		removeCookie('password')
+		*/
+		localStorage.removeItem('user')
 		router.push('/login')
 	}
 	

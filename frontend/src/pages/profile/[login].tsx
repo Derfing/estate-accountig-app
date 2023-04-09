@@ -23,12 +23,11 @@ interface ServerSideProps {
 const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 	const router = useRouter()
 	let loginFromURL = router.query['login']
-  const [cookies, setCookie, removeCookie] = useCookies(['login', 'is_loginned'])
 
 	const [changeProfileMode, setChangeProfileMode] = useState(false)
 	const [counter, setCounter] = useState(0)
 
-	const curLogin = useAppSelector(state => state.user.login)
+	const user = useAppSelector(state => state.user)
 
 	const [login, setLogin] = useState(loginFromURL)
 	const [firstname, setFirstname] = useState('')
@@ -45,7 +44,7 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 	}
 	
   useEffect(() => {
-    if (!cookies.is_loginned) {
+    if (!user.is_loginned) {
       router.push('/login')
     }
 		if (data && data.result) {
@@ -94,10 +93,10 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 
 	async function handleDeleteUser() {
 		API.delete(`/profile/${login}/delete`)
-		if (curLogin === login) {
+		if (user.login === login) {
 			router.push('/login')
 		} else {
-			router.push(`/profile/${curLogin}`)
+			router.push(`/profile/${user.login}`)
 		}
 	}
 
@@ -165,7 +164,6 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 
 export const getServerSideProps: GetServerSideProps<{ data: ServerSideProps }> = async (context) => {
 	const login = context.query['login']
-	
 	const data: ServerSideProps = await API.get(`/profile/${login}`).then(response => response.data)
 
 	return {

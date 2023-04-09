@@ -14,12 +14,14 @@ const Create = () => {
 	const [patronymic, setPatronymic] = useState('')
 	const [speciality, setSpeciality] = useState('')
 
+	const [role, setRole] = useState(useAppSelector(state => state.user.role))
+	const myLogin = useAppSelector(state => state.user.login)
+
 	const [validateError, setValidateError] = useState<null | string>(null)
 
-	const role = useAppSelector(state => state.user.role)
-	const myLogin = useAppSelector(state => state.user.login)
-	
 	useEffect(() => {
+		//alert(role)
+		console.log(role)
 		if (role !== 'ГИН') {
 			router.push(`/profile/${myLogin}`)
 		}
@@ -29,10 +31,14 @@ const Create = () => {
 		return login.length && password.length && firstname.length && lastname.length && patronymic.length && speciality.length;
 	}
 
-	function handleSubmitForm() {
+	function handleSubmitForm(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault()
+
 		if (!validate()) {
 			setValidateError('Заполните все поля!')
+			return
 		}
+		
 		API.post('/api/profile/create', {
 			login,
 			password,
@@ -41,13 +47,20 @@ const Create = () => {
 			patronymic,
 			speciality
 		})
+		
+		setLogin('')
+		setPassword('')
+		setFirstname('')
+		setLastname('')
+		setPatronymic('')
+		setSpeciality('')
 	}
 
 	return (
 		<MainLayout>
 			<div className="container">
 				<h1>Добавить сотрудника</h1>
-				<form className='form-create-user'>
+				<form className='form-create-user' onSubmit={handleSubmitForm}>
 					<section className='create-user-section'>
 						<label>Логин: </label>
 						<input type='text' value={login} onChange={e => setLogin(e.target.value)}/>
@@ -73,7 +86,7 @@ const Create = () => {
 						<input type='text' value={speciality} onChange={e => setSpeciality(e.target.value)}/>
 					</section>
 					<div className="create-user-section">
-						<button type='submit' onClick={handleSubmitForm}>Создать</button>
+						<button onClick={() => handleSubmitForm}>Создать</button>
 					</div>
 					{
 						validateError && <div className='error-block'>{validateError}</div>

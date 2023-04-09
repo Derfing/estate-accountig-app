@@ -1,17 +1,16 @@
-import { cookies } from 'next/dist/client/components/headers'
+import { useAppSelector } from '@/hooks'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import { useCookies } from 'react-cookie'
 
 const PageNotFound = () => {
-	const [cookies, setCookie, removeCookie] = useCookies(['login'])
+	//const [cookies, setCookie, removeCookie] = useCookies(['login'])
+	const login = useAppSelector(state => state.user.login)
 	const router = useRouter()
 
 	useEffect(() => {
 		setTimeout(() => {
-			const login = cookies.login
 			if (login) {
-				router.push(`/profile/${cookies.login}`)
+				router.push(`/profile/${login}`)
 			} else {
 				router.push('/login')
 			}
