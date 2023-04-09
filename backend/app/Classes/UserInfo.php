@@ -13,12 +13,15 @@ class UserInfo
 {
     static function getProfile($login)
     {
-        $user = User::where('login', $login)->first();
-        $human = Human::where('id', $user->human_id)->first();
-
-        if (!$user || !$human) {
+        $user = User::find($login);
+        if (!$user) {
             return response(['status' => 'Не существует пользователя с таким логином или он неправильно заполнен.']);
         }
+        $human = Human::find($user->human_id);
+        if (!$human) {
+            return response(['status' => 'Не существует пользователя с таким логином или он неправильно заполнен.']);
+        }
+
 
         $objectsId = Job::select('object_id')->where('responsible_worker_login', $login)->groupBy('object_id')->get();
 
