@@ -6,6 +6,7 @@ import { IObject } from '@/types/object'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Link from 'next/link'
 import API from '@/utils/API'
+import { useAppSelector } from '@/hooks'
 
 interface ServerSideProps {
 	status: string
@@ -26,6 +27,8 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 
 	const [changeProfileMode, setChangeProfileMode] = useState(false)
 	const [counter, setCounter] = useState(0)
+
+	const curLogin = useAppSelector(state => state.user.login)
 
 	const [login, setLogin] = useState(loginFromURL)
 	const [firstname, setFirstname] = useState('')
@@ -52,7 +55,6 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 			setSpeciality(data.result.speciality)
 			setRole(data.result.role)
 		}
-		
   }, [])
 
 	async function fetchUser(): Promise<ServerSideProps> {
@@ -90,7 +92,12 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 	}
 
 	async function handleDeleteUser() {
-		await API.delete(`/profile/${login}/delete`)
+		API.delete(`/profile/${login}/delete`)
+		if (curLogin === login) {
+			router.push('/login')
+		} else {
+			router.push(`/profile/${curLogin}`)
+		}
 	}
 
 	function handleCreateUser() {
