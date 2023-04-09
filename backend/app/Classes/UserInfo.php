@@ -25,6 +25,8 @@ class UserInfo
 
         $objectsId = Job::select('object_id')->where('responsible_worker_login', $login)->groupBy('object_id')->get();
 
+        $objects = [];
+
         foreach ($objectsId as $object) {
             $obj = ObjectOfAgenda::select('property_id', 'decision')->where('id', $object->object_id)->first();
             $prop = Property::select('street', 'home')->where('id', $obj['property_id'])->first();
