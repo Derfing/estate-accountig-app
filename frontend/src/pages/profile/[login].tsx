@@ -2,7 +2,7 @@ import MainLayout from '@/components/MainLayout'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
-import { IObject } from '@/types/object'
+import { IObjectInProfile } from '@/types/object'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import Link from 'next/link'
 import API from '@/utils/API'
@@ -16,7 +16,7 @@ interface ServerSideProps {
 		patronymic?: string
 		speciality: string
 		role: string
-		objects: IObject[]
+		objects: IObjectInProfile[]
 	}
 }
 
