@@ -44,6 +44,10 @@ class UserControl
         $user = User::find($login);
         $human = Human::find($user->human_id);
 
+        if (!$user || !$human) {
+            return response(['status' => 'Не существует пользователя с таким логином или он неправильно заполнен.']);
+        }
+
         if ($user->forceDelete() && $human->forceDelete())
             return response(['status' => 'ok']);
         else
