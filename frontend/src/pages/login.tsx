@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useAppDispatch } from '@/hooks'
 import { setIsLoginned, setLogin, setPassword } from '@/store/slices/userSlice'
+import API from '@/utils/API'
 
 const Login = () => {
 	const [cookies, setCookie, removeCookie] = useCookies(['login', 'password', 'is_loginned'])
@@ -27,7 +28,7 @@ const Login = () => {
 		e.preventDefault()
 
 		try {
-			const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URI}/api/login`, {
+			const response = await API.post('/api/login', {
 				login: login_,
 				password: password_
 			})
