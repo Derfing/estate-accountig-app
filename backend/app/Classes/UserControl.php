@@ -10,7 +10,7 @@ class UserControl
 {
     static function editUserWithHuman(Request $request, $login)
     {
-        $name = $request['name'];
+        $firstname = $request['firstname'];
         $lastname = $request['lastname'];
         $patronymic = $request['patronymic'];
         $speciality = $request['speciality'];
@@ -20,7 +20,7 @@ class UserControl
 
         $user->speciality = $speciality;
         $human->surname = $lastname;
-        $human->first_name = $name;
+        $human->first_name = $firstname;
         $human->patronymic = $patronymic;
 
         $user->save();
