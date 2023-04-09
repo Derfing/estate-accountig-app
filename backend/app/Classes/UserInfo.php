@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Models\Job;
 use App\Models\Property;
 use Illuminate\Http\Request;
-use PhpParser\Node\Expr\Cast\Object_;
 
 class UserInfo
 {
@@ -16,7 +15,13 @@ class UserInfo
     {
         $user = User::where('login', $login)->first();
         $human = Human::where('id', $user->human_id)->first();
+
+        if (!$user || !$human) {
+            return response(['status' => 'Ошибка: Не существует пользователя с таким логином или он неправильно заполнен.']);
+        }
+
         $objectsId = Job::select('object_id')->where('responsible_worker_login', $login)->groupBy('object_id')->get();
+
         foreach ($objectsId as $object) {
             $obj = ObjectOfAgenda::select('property_id', 'decision')->where('id', $object->object_id)->first();
             $prop = Property::select('street', 'home')->where('id', $obj['property_id'])->first();
@@ -26,20 +31,20 @@ class UserInfo
                 'street' => $prop['street']
             ];
         }
-        if (isset($user) && isset($human) && isset($objectsId)) {
-            $result = [
-                'first_name' => $human->first_name,
-                'last_name' => $human->surname,
-                'patronymic' => $human->patronymic,
-                'speciality' => $user->speciality,
-                'role' => $user->role,
-                'objects' => $objects
-            ];
-            return response($result);
-        }
-        else
-        {
-            return response(['status' => 'error', 'error' => 'Not complete data for this user']);
+
+        $result = [
+            'first_name' => $human->first_name,
+            'last_name' => $human->surname,
+            'patronymic' => $human->patronymic,
+            'speciality' => $user->speciality,
+            'role' => $user->role,
+            'objects' => $objects
+        ];
+
+        if (!$result) {
+            return response(['status' => 'Ошибка: Ошибка во время генерации ответа.']);
+        } else {
+            return response(['status' => 'ok', 'result' => $result]);
         }
     }
 

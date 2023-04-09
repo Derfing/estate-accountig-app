@@ -21,4 +21,8 @@ class AuthController extends Controller
     {
         return UserControl::editUserWithHuman($request, $login);
     }
+    public function deleteProfile ($login)
+    {
+        return UserControl::deleteUserWithHuman($login);
+    }
 }

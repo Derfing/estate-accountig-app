@@ -32,4 +32,14 @@ class UserControl
             return ['status', '-1'];
         }
     }
+
+    static function deleteUserWithHuman($login)
+    {
+        $user = User::find($login);
+        $human = Human::find($user->human_id);
+        if ($user->forceDelete() && $human->forceDelete())
+            return response(['status' => '0']);
+        else
+            return response(['status' => '-1']);
+    }
 }
