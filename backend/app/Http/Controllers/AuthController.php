@@ -17,12 +17,16 @@ class AuthController extends Controller
     {
         return UserInfo::getProfile($login);
     }
-    public function editProfile (Request $request, $login)
+    public function editProfile(Request $request, $login)
     {
         return UserControl::editUserWithHuman($request, $login);
     }
-    public function deleteProfile ($login)
+    public function deleteProfile($login)
     {
         return UserControl::deleteUserWithHuman($login);
+    }
+    public function createProfile(Request $request)
+    {
+        return UserControl::createUserWithHuman($request);
     }
 }
