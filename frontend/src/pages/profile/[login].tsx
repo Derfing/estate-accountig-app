@@ -13,7 +13,7 @@ interface ServerSideProps {
 	result: {
 		first_name: string
 		last_name: string
-		patronymic: string
+		patronymic?: string
 		speciality: string
 		role: string
 		objects: IObject[]
@@ -51,7 +51,8 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 		if (data && data.result) {
 			setFirstname(data.result.first_name)
 			setLastname(data.result.last_name)
-			setPatronymic(data.result.patronymic)
+			const patronymic = data.result.patronymic
+			setPatronymic(patronymic ? patronymic : '')
 			setSpeciality(data.result.speciality)
 			setRole(data.result.role)
 		}
@@ -166,7 +167,6 @@ export const getServerSideProps: GetServerSideProps<{ data: ServerSideProps }> =
 	const login = context.query['login']
 	
 	const data: ServerSideProps = await API.get(`/profile/${login}`).then(response => response.data)
-	//console.log(data)
 
 	return {
 		props: {

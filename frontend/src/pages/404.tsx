@@ -15,7 +15,7 @@ const PageNotFound = () => {
 			} else {
 				router.push('/login')
 			}
-		}, 2000)
+		}, 1000)
 	}, [])
 
 	return (

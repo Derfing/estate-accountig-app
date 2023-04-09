@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie'
 
 const Menu = () => {
 	const curPageId = useAppSelector(state => state.curPage.curPageIndex)
-	const [cookies] = useCookies(['login'])
+	const login = useAppSelector(state => state.user.login)
 
 	return (
 		<nav className='menu'>
@@ -29,7 +29,7 @@ const Menu = () => {
 
 					}
 					if (index === 7) {
-						return <Link href={{pathname: href, query: {login: cookies.login}}} key={index} className={className}>{name}</Link>
+						return <Link href={{pathname: href, query: {login: login}}} key={index} className={className}>{name}</Link>
 					}
 
 					return <Link href={href} key={index} className={className}>{name}</Link>
