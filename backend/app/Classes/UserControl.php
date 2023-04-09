@@ -15,8 +15,8 @@ class UserControl
         $patronymic = $request['patronymic'];
         $speciality = $request['speciality'];
 
-        $user = User::select('speciality', 'human_id')->where('login', $login)->first();
-        $human = Human::select('surname', 'first_name', 'patronymic')->where('id', $user->human_id)->first();
+        $user = User::find($login);
+        $human = Human::find($user->human_id);
 
         $user->speciality = $speciality;
         $human->surname = $lastname;
@@ -26,7 +26,7 @@ class UserControl
         $user->save();
         $human->save();
 
-        if ( true ) {
+        if ($user->save() &&  $human->save()) {
             return ['status', '0'];
         } else {
             return ['status', '-1'];
