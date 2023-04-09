@@ -92,6 +92,48 @@ header {
 		}
 	}	
 }
-.login-label {
-	font-weight: bold;
+.profile-global-wrapper {
+	margin-top: 50px;
+	.profile-section {
+		margin: 35px 0;
+		display: flex;
+		.profile-content {
+			.worker-FIO {
+				font-weight: bold;
+			}
+			.login-label {
+				font-weight: bold;
+			}
+			.speciality-label {
+				font-size: 0.7em;
+				color: grey;
+				margin-top: 5px;
+			}
+		}
+		&.active-objects {
+			.profile-content {
+				.obj-wrapper {
+					border-bottom: 1px solid grey;
+					padding: 10px 0;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					.obj-info {
+						.obj-address {
+							font-size: 0.7em;
+							color: grey;
+							margin-top: 4px;
+						}
+					}
+					.see-task {
+						margin-left: 120px;
+						a {
+							color: grey;
+							font-size: 0.8em;
+						}
+					}
+				}
+			}
+		}
+	}
 }

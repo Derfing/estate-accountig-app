@@ -3,8 +3,9 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useCookies } from 'react-cookie'
-import { IObject } from '@/types/Object'
+import { IObject } from '@/types/object'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
+import Link from 'next/link'
 
 interface ServerSideProps {
 	first_name: string
@@ -23,6 +24,11 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 	const last_name = data.last_name
 	const patronymic = data.patronymic
 
+	let objects = []
+	for (let key in data.objects) {
+		objects.push({...data.objects[key], id: Number(key)})
+	}
+
   useEffect(() => {
     if (!cookies.is_loginned) {
       router.push('/login')
@@ -32,12 +38,35 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 	
 	return (
 		<MainLayout>
-			<div className="container">
-				<section>
-					<span className='login-label'>Логин:</span> {login}
+			<div className="container profile-global-wrapper">
+				<section className='profile-section login-section'>
+					<div className="profile-content">
+						<span className='login-label'>Логин:</span> {login}
+					</div>
 				</section>
-				<section>
-					{last_name} {first_name} {patronymic}
+				<section className='profile-section fio-section'>
+					<div className="profile-content">
+						<span className='worker-FIO'>{last_name} {first_name} {patronymic}</span><br/>
+						<label className='speciality-label'>{data.speciality}</label>
+					</div>
+				</section>
+				<section className='profile-section active-objects'>
+					<div className="profile-content">
+						<h2>Действующие объекты</h2>
+						{
+							objects.map(({id, decision, street, home}) => (
+								<div className='obj-wrapper' key={id}>
+									<div className='obj-info'>
+										<div className='obj-name'>Объект №{id}: {decision}</div>
+										<div className='obj-address'>{street}{home ? `, ${home}` : ''}</div>
+									</div>
+									<div className='see-task'>
+										<Link href={`/object/${id}`}>Посмотреть задачу</Link>
+									</div>
+								</div>
+							))
+						}
+					</div>
 				</section>
 			</div>
 		</MainLayout>
