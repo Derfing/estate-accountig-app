@@ -33,14 +33,16 @@ const CreateObject = () => {
 		return newAttributeName.length && newAttributeValue.length
 	}
 
-	function handleAddAttribute(e: React.FormEvent<HTMLFormElement>) {
-		e.preventDefault()
+	function handleAddAttribute() {
+		console.log('test 1')
 
 		if (!validateNew()) {
 			setValidateError('Заполните имя и значение нового атрибута')
 			return
 		}
 		setValidateError('')
+
+		console.log('test 2')
 
 		//добавляем поле
 		setCustomAttributes([...customAttributes, {
@@ -120,7 +122,7 @@ const CreateObject = () => {
 								<input type='text' className='property-new-attr-input' value={newAttributeName} onChange={e => setNewAttributeName(e.target.value)}/>
 								<input type='text' className='property-new-attr-input' value={newAttributeValue} onChange={e => setNewAttributeValue(e.target.value)}/>
 							</div>
-							<button type='submit' className='add-attribute-btn' onClick={() => handleAddAttribute}>+ Добавить поле</button>
+							<button type='button' className='add-attribute-btn' onClick={handleAddAttribute}>+ Добавить поле</button>
 							{
 								validateError && <span>{validateError}</span>
 							}
