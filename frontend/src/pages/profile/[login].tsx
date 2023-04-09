@@ -28,21 +28,31 @@ const Profile = ({data}: InferGetServerSidePropsType<typeof getServerSideProps>)
 	const [counter, setCounter] = useState(0)
 
 	const [login, setLogin] = useState(loginFromURL)
-	const [firstname, setFirstname] = useState(data.result.first_name)
-	const [lastname, setLastname] = useState(data.result.last_name)
-	const [patronymic, setPatronymic] = useState(data.result.patronymic)
-	const [speciality, setSpeciality] = useState(data.result.speciality)
-	const [role, setRole] = useState(data.result.role)
+	const [firstname, setFirstname] = useState('')
+	const [lastname, setLastname] = useState('')
+	const [patronymic, setPatronymic] = useState('')
+	const [speciality, setSpeciality] = useState('')
+	const [role, setRole] = useState('')
 
 	let objects = []
-	for (let key in data.result.objects) {
-		objects.push({...data.result.objects[key], id: Number(key)})
+	if (data.result) {
+		for (let key in data.result.objects) {
+			objects.push({...data.result.objects[key], id: Number(key)})
+		}
 	}
-
+	
   useEffect(() => {
     if (!cookies.is_loginned) {
       router.push('/login')
     }
+		if (data && data.result) {
+			setFirstname(data.result.first_name)
+			setLastname(data.result.last_name)
+			setPatronymic(data.result.patronymic)
+			setSpeciality(data.result.speciality)
+			setRole(data.result.role)
+		}
+		
   }, [])
 
 	async function fetchUser(): Promise<ServerSideProps> {

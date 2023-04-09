@@ -34,11 +34,12 @@ const Login = () => {
 			})
 	
 			const { status, result } = response.data
-			const role = result.role
 
 			if (status !== 'ok') {
 				throw new Error(status)
 			}
+
+			const role = result.role
 
 			const TIME = 24 * 60 * 60
 	
