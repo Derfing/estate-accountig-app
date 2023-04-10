@@ -78,6 +78,7 @@ const CreateObject = () => {
 			owner,
 			actualUser,
 			description,
+			customAttributes,
 			files
 		})
 	}

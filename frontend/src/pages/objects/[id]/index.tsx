@@ -1,4 +1,5 @@
 import MainLayout from '@/components/MainLayout'
+import { CustomAttribute } from '@/types/property'
 import API from '@/utils/API'
 import { GetServerSideProps } from 'next/types'
 import React from 'react'
@@ -6,7 +7,17 @@ import React from 'react'
 interface ServerSideProps {
 	status: string
 	result: {
-		
+		propertyId: number
+		district: string
+		region: string
+		street: string
+		home: string
+		propertyType: string
+		propertyState: string
+		propertyArea: number
+		owner: string
+		actualUser: string
+		customAttributes: CustomAttribute[]
 	}
 }
 
